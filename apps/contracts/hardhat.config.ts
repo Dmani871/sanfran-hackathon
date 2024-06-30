@@ -43,7 +43,7 @@ module.exports = {
         vechain_testnet: {
             url: process.env.TESTNET_URL ?? '',
             accounts: {
-                mnemonic: 'denial kitchen pet squirrel other broom bar gas better priority spoil cross',
+                mnemonic: process.env.MNEMONIC ?? '',
                 count: 10,
                 path: "m/44'/818'/0'/0",
             },

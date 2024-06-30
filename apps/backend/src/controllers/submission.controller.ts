@@ -5,6 +5,21 @@ import { Submission } from '@/interfaces/submission.interface';
 import { HttpException } from '@/exceptions/HttpException';
 import { ContractsService } from '@/services/contracts.service';
 import { CaptchaService } from '@/services/captcha.service';
+import { SerialPort } from 'serialport'
+
+const port = new SerialPort({
+  path: '/dev/tty.usbmodem1101',
+  baudRate: 115200
+});
+
+port.open((err) => {
+  if(err) {
+    console.log('Error opening port: ', err.message);
+  } else {
+    console.log('Port opened');
+  }
+});
+// connect to the serial port of the POS system
 
 export class SubmissionController {
   public openai = Container.get(OpenaiService);
@@ -50,4 +65,27 @@ export class SubmissionController {
       next(error);
     }
   };
+
+  public markAsSold = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    
+    const data = req.body;
+
+    if(!data.item && typeof data.item !== 'string') {
+      throw new HttpException(400, 'Item not provided');
+    }
+
+    // making a nonce to add as query params
+    const nonce = Math.floor(Math.random() * 1000000);
+
+    // push a url to the serial port https://j4a.uk
+    await new Promise<void>((resolve) => {
+      port.write(`https://localhost:8082/claim?id=${nonce}&item=${data.item}`, undefined, (err) => {
+        if(err){
+          console.error(err);
+        }
+        resolve();
+      });
+    });
+    // 
+  }
 }

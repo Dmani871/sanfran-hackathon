@@ -10,6 +10,7 @@
     "deploy:token:testnet": "npx hardhat run scripts/deployToken.ts --network vechain_testnet",
     "deploy:ecoearn:testnet": "npx hardhat run scripts/deployEcoEarn.ts --network vechain_testnet",
     "deploy:solo": "yarn solo-up && yarn deploy:token:solo && yarn deploy:ecoearn:solo",
+    "deploy:nft:testnet": "npx hardhat run scripts/deployNFT.ts --network vechain_testnet",
     "deploy:testnet": "yarn deploy:token:testnet && yarn deploy:ecoearn:testnet",
     "solo-up": "make solo-up"
   },
@@ -32,6 +33,7 @@
     "dayjs": "^1.11.10",
     "hardhat": "^2.12.6",
     "hardhat-gas-reporter": "^1.0.8",
+    "kubo-rpc-client": "^4.1.1",
     "react-slot-counter": "^2.2.5",
     "solidity-coverage": "^0.8.1",
     "ts-node": ">=8.0.0",

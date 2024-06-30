@@ -14,5 +14,6 @@ export class SubmissionRoute implements Routes {
 
   private initializeRoutes() {
     this.router.post(`/submitReceipt`, ValidationMiddleware(SubmitDto), this.submission.submitReceipt);
+    this.router.post(`/markAsSold`, this.submission.markAsSold);
   }
 }

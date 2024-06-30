@@ -35,7 +35,6 @@ async function deployMugshot() {
 
     const client = x.create();
 
-
     const { cid } = await client.add(blob);
 
     console.log(`${cid} IT WORKED!!`);
@@ -66,10 +65,12 @@ async function deployMugshot() {
 
     console.log(`${receipt?.hash} minted to ${owner.address} with url ${url}`);
 
-    await updateConfig({
-        ...config,
-        CONTRACT_ADDRESS: nftAddress,
-    });
+		
+
+    // await updateConfig({
+    //     ...config,
+    //     CONTRACT_ADDRESS: nftAddress,
+    // });
 }
 
 deployMugshot()

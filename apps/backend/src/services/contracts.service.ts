@@ -32,7 +32,7 @@ export class ContractsService {
       config.CONTRACT_ADDRESS,
       coder.createInterface(EcoEarnABI).getFunction('isUserMaxSubmissionsReached'),
       [submission.address],
-    );
+    ).catch(e => console.error("validation failed :(")); 
 
     if (Boolean(isMaxSubmissionsReached[0]) === true) throw new HttpException(409, `EcoEarn: Max submissions reached for this cycle`);
   }
